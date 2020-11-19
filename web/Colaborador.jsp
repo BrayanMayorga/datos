@@ -92,6 +92,7 @@
                                 <th>Correo</th>
                                 <th>Direccion</th>
                                 <th>Acceso</th>
+                                <th>Surcusal</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -105,6 +106,7 @@
                                     <td>${co.getCorreo()}</td>
                                     <td>${co.getDireccion()}</td>
                                     <td>${co.getTipoAcceso()}</td>
+                                    <td>${co.getOficina()}</td>
                                     <td>
                                         <a>Actualizar</a>
                                         <a>Eliminar</a>
