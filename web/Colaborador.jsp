@@ -89,8 +89,8 @@
                         <thead>
                             <tr>
                                 <th>Rut</th>
-                                <th>Nombres</th>
-                                <th>Apellidos</th>
+                                <th>Nombre</th>
+                                <th>Apellido</th>
                                 <th>Direccion</th>
                                 <th>Telefono</th>
                                 <th>Correo</th>
