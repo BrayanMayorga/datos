@@ -19,9 +19,9 @@ import javax.servlet.http.HttpServletResponse;
 public class Controlador extends HttpServlet {
 
     ColaboradorDAO codao = new ColaboradorDAO();
-    Colaborador co = new Colaborador();
+    Colaborador co=new Colaborador();
     OficinaDAO ofdao = new OficinaDAO();
-    Oficina ofi;
+    Oficina of=new Oficina();
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -39,27 +39,26 @@ public class Controlador extends HttpServlet {
                     request.setAttribute("colaboradores", lista);
                     break;
                 case "Agregar":
-                    int rut = Integer.parseInt(request.getParameter("txtRutColaborador"));
+                    int rut = Integer.parseInt(request.getParameter("txtRut"));
                     String nombre = request.getParameter("txtNombre");
                     String apellido = request.getParameter("txtApellido");
                     String usuario = request.getParameter("txtUsuario");
-                    String password = request.getParameter("txtPassword");
                     String direccion = request.getParameter("txtDireccion");
-                    String correo = request.getParameter("txtCorreo");
                     int telefono = Integer.parseInt(request.getParameter("txtTelefono"));
+                    String correo = request.getParameter("txtCorreo");
+                    String password = request.getParameter("txtPass");
                     String acceso = request.getParameter("cbAcceso");
-                    ofi=new Oficina();
-                    ofi.setId(Integer.parseInt(request.getParameter("cbOficina")));
+                    int idOficina =Integer.parseInt(request.getParameter("cbOficina"));
                     co.setRutColaborador(rut);
                     co.setNombre(nombre);
                     co.setApellido(apellido);
-                    co.setUsuario(usuario);
-                    co.setPassword(password);
-                    co.setDireccion(direccion);
-                    co.setCorreo(correo);
+                    co.setUsuario(usuario);                    
+                    co.setDireccion(direccion); 
                     co.setTelefono(telefono);
-                    co.setTipoAcceso(acceso);                   
-                    co.setOficina(ofi);
+                    co.setCorreo(correo);
+                    co.setPassword(password);
+                    co.setTipoAcceso(acceso);
+                    co.setIdOficina(idOficina);
                     codao.agregar(co);
                     request.getRequestDispatcher("Controlador?menu=Colaborador&accion=Listar").forward(request, response);
                     break;
@@ -76,6 +75,21 @@ public class Controlador extends HttpServlet {
             request.getRequestDispatcher("Empresas.jsp").forward(request, response);
         }
         if (menu.equals("Surcusal")) {
+            switch (accion) {
+                case "Listar":
+                    List listaOf = ofdao.mostrar();
+                    request.setAttribute("oficinas", listaOf);
+                    break;
+                case "Agregar":
+                    String nombre = request.getParameter("txtNombre");
+                    String direccion = request.getParameter("txtDireccion");
+                    of.setNom(nombre);
+                    of.setDir(direccion);
+                    ofdao.agregar(of);
+                    request.getRequestDispatcher("Controlador?menu=Surcusal&accion=Listar").forward(request, response);
+                    break;
+            }
+
             request.getRequestDispatcher("Oficina.jsp").forward(request, response);
         }
         if (menu.equals("Pago")) {

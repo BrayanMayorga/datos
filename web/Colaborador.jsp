@@ -10,7 +10,7 @@
         <title>Colaboradores</title>
     </head>
 
-    <body>
+    <body>        
 
     <center>
         <h3>Colaboradores</h3>
@@ -18,68 +18,71 @@
     <br>
 
     <div class="d-flex">
-        <div class="card col-sm-3">
-            <div class="card-body">
-                <form accion="Controlador?menu=Colaborador" method="POST">
-                    <div class="form-group">
-                        <label>Rut</label>
-                        <input type="text" name="txtRutColaborador" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>Nombres</label>
-                        <input type="text" name="txtNombre" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>Apellidos</label>
-                        <input type="text" name="txtApellido" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>Usuario</label>
-                        <input type="text" name="txtUsuario" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>Contraseña</label>
-                        <input type="password" name="txtPassword" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>Direccion</label>
-                        <input type="text" name="txtDireccion" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>Correo</label>
-                        <input type="text" name="txtCorreo" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>Telefono</label>
-                        <input type="text" name="txtTelefono" class="form-control">
-                    </div>
-                    <div class="form-group form-group-lg">
-                        <label class="control-label" for="cbAcceso">Acceso</label><br>
-                        <div>
-                            <select class="form-control" id="cbAcceso" name="cbAcceso">
-                                <option>Administrador/a</option>
-                                <option>Secretaria</option>
-                                <option>Contador/a</option>                
-                            </select>
+        <div class="col-sm-3">
+            <div class="card">
+                <div class="card-body">
+                    <form action="Controlador?menu=Colaborador" method="POST">
+
+                        <div class="form-group">
+                            <label>Rut</label>
+                            <input type="text" name="txtRut" class="form-control">
                         </div>
-                    </div>
-                    <div class="form-group form-group-lg">
-                        <label class="control-label" for="cbOficina">Surcusal</label><br>
-                        <div>
-                            <select class="form-control" name="cbOficina">
-                                <% List<Oficina> listaOf = (List<Oficina>) request.getAttribute("oficinas");
-                                    if (listaOf != null)
-                                        for (Oficina oficina : listaOf) {%>
-                                <option value="<%=oficina.getId()%>"><%=oficina.getNom()%></option>
-                                <%}%>                     
-                            </select>
+                        <div class="form-group">
+                            <label>Nombre</label>
+                            <input type="text" name="txtNombre" class="form-control">
                         </div>
-                    </div>
-                    <input type="submit" name="accion" value="Agregar" class="btn btn-info btn-block">
-                </form>
+                        <div class="form-group">
+                            <label>Apellido</label>
+                            <input type="text" name="txtApellido" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Usuario</label>
+                            <input type="text" name="txtUsuario" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Direccio</label>
+                            <input type="text" name="txtDireccion" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Telefono</label>
+                            <input type="text" name="txtTelefono" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Correo</label>
+                            <input type="text" name="txtCorreo" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Contraseña</label>
+                            <input type="text" name="txtPass" class="form-control">
+                        </div>
+                        <div class="form-group form-group-lg">
+                            <label class="control-label">Acceso</label><br>
+                            <div>
+                                <select class="form-control" name="cbAcceso">
+                                    <option>Administrador/a</option>
+                                    <option>Secretaria/o</option>
+                                    <option>Contador/a</option>                
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group form-group-lg">
+                            <label class="control-label">Surcusal</label><br>
+                            <div>
+                                <select class="form-control" name="cbOficina">
+                                    <% List<Oficina> listaOf = (List<Oficina>) request.getAttribute("oficinas");
+                                        if (listaOf != null)
+                                            for (Oficina oficina : listaOf) {%>
+                                    <option value="<%=oficina.getId()%>"><%=oficina.getNom()%></option>
+                                    <%}%>                     
+                                </select>
+                            </div>
+                        </div>
+                        <input type="submit" name="accion" value="Agregar" class="btn btn-primary">
+                    </form>
+                </div>                         
             </div>
         </div>                     
-        <div class="col-sm-10">
+        <div class="col-sm-9">
             <div class="card">
                 <div class="card-body">
                     <table class="table table-hover">
@@ -87,12 +90,10 @@
                             <tr>
                                 <th>Rut</th>
                                 <th>Nombres</th>
-                                <th>Apellidos</th>                              
+                                <th>Apellidos</th>
+                                <th>Direccion</th>
                                 <th>Telefono</th>
                                 <th>Correo</th>
-                                <th>Direccion</th>
-                                <th>Acceso</th>
-                                <th>Surcusal</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -102,17 +103,17 @@
                                     <td>${co.getRutColaborador()}</td>
                                     <td>${co.getNombre()}</td>
                                     <td>${co.getApellido()}</td>
-                                    <td>${co.getTelefono()}</td>                                   
-                                    <td>${co.getCorreo()}</td>
                                     <td>${co.getDireccion()}</td>
-                                    <td>${co.getTipoAcceso()}</td>
-                                    <td>${co.getOficina()}</td>
+                                    <td>${co.getTelefono()}</td>
+                                    <td>${co.getCorreo()}</td>
                                     <td>
-                                        <a>Actualizar</a>
-                                        <a>Eliminar</a>
+                                        <a class="btn btn-warning" href="">Editar</a>
+                                        <a class="btn btn-danger" href="">Eliminar</a>
+
                                     </td>
                                 </tr>
                             </c:forEach>
+
                         </tbody>
                     </table>
                 </div>

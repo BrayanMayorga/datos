@@ -1,4 +1,3 @@
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -17,23 +16,16 @@
         <div class="col-sm-4">
             <div class="card">
                 <div class="card-body">
-                    <form action="Controlador?menu=Empleado" method="POST">
+                    <form action="Controlador?menu=Surcusal" method="POST">
                         <div class="form-group">
-                            <label>Nombre:</label>
-                            <input type="text" value="${empleado.getDni()}" name="txtDni" class="form-control">
+                            <label>Nombre</label>
+                            <input type="text" name="txtNombre" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label>Direccion:</label>
-                            <input type="text" value="${empleado.getNom()}" name="txtNombres" class="form-control">
+                            <label>Direccion</label>
+                            <input type="text" name="txtDireccion" class="form-control">
                         </div>
-                        <div class="form-group">
-                            <label>Rut Empresa:</label>
-                            <input type="text" value="${empleado.getTel()}" name="txtTel" class="form-control">
-                        </div>
-
                         <input type="submit" name="accion" value="Agregar" class="btn btn-primary">
-                        <input type="submit" name="accion" value="Actualizar" class="btn btn-success">
-                        <input type="submit" name="accion" value="Eliminar" class="btn btn-danger">
                     </form>
                 </div>                         
             </div>
@@ -45,30 +37,20 @@
                         <thead>
                             <tr>
                                 <th>Codigo</th>
-                                <th>Nombre usuario</th>
-                                <th>ID Imposicion</th>
                                 <th>Nombre</th>
                                 <th>Direccion</th>
-                                <th>Rut Empresa</th>
-
-
-
+                                <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody> 
-                            <c:forEach var="em" items="${empleados}">
+                            <c:forEach var="of" items="${oficinas}">
                                 <tr>
-                                    <td>${em.getId()}</td>
-                                    <td>${em.getDni()}</td>
-                                    <td>${em.getNom()}</td>
-                                    <td>${em.getTel()}</td>
-                                    <td>${em.getEstado()}</td>
-                                    <td>${em.getUser()}</td>
+                                    <td>${of.getId()}</td>                                    
+                                    <td>${of.getNom()}</td>
+                                    <td>${of.getDir()}</td>
                                     <td>
-                                        <a class="btn btn-warning" href="Controlador?menu=Empleado&accion=Editar&id=${em.getId()}">Editar</a>
-                                        <a class="btn btn-danger" href="Controlador?menu=Empleado&accion=Delete&id=${em.getId()}">Eliminar</a>
-                                        <a class="btn btn-danger" href="Controlador?menu=Empleado&accion=Delete&id=${em.getId()}">Agregat</a>
-                                        <a class="btn btn-danger" href="Controlador?menu=Empleado&accion=Delete&id=${em.getId()}"></a>
+                                        <a class="btn btn-warning" href="">Editar</a>
+                                        <a class="btn btn-danger" href="">Eliminar</a>                                       
                                     </td>
                                 </tr>
                             </c:forEach>

@@ -39,7 +39,7 @@ public class ColaboradorDAO {
                 co.setCorreo(rs.getString("Correo"));
                 co.setTelefono(rs.getInt("Telefono"));
                 co.setTipoAcceso(rs.getString("TipoDeAcceso"));
-                of.setId(rs.getInt("oficinas"));
+                of.setId(rs.getInt("IdOficina"));
             }
         } catch (Exception e) {
 
@@ -65,7 +65,8 @@ public class ColaboradorDAO {
                 co.setCorreo(rs.getString(7));
                 co.setPassword(rs.getString(8));
                 co.setTipoAcceso(rs.getString(9));
-                of.setId(rs.getInt(10));
+                co.setIdOficina(rs.getInt(10));
+                //of.setId(rs.getInt(10));
                 lista.add(co);
             }
         } catch (Exception e) {
@@ -75,8 +76,7 @@ public class ColaboradorDAO {
     }
 
     public int agregar(Colaborador c) {
-        String sql = "insert into colaborador(RutColaborador,Nombre,Apellido,Usuario,Direccion,"
-                + "Telefono,Correo,Password,TipoDeAcceso,IDOficina)values(?,?,?;?,?,?,?,?,?,?)";
+        String sql = "insert into colaborador(RutColaborador, Nombre, Apellido, Usuario, Direccion, Telefono, Correo, Password, Acceso, IdOficina)values(?,?,?,?,?,?,?,?,?,?)";
         try {
             Conectar = cn.Conexion();
             ps = Conectar.prepareStatement(sql);
@@ -89,7 +89,7 @@ public class ColaboradorDAO {
             ps.setString(7, c.getCorreo());
             ps.setString(8, c.getPassword());
             ps.setString(9, c.getTipoAcceso());
-            ps.setInt(10, c.getOficina().getId());            
+            ps.setInt(10, c.getIdOficina());            
             ps.executeUpdate();
         } catch (Exception e) {
 
@@ -111,8 +111,10 @@ public class ColaboradorDAO {
                 cola.setTelefono(rs.getInt(5));
                 cola.setCorreo(rs.getString(6));
                 cola.setDireccion(rs.getString(7));
-                cola.setTipoAcceso(rs.getString(8));
-                of.setId(rs.getInt(9));
+                cola.setPassword(rs.getString(8));
+                cola.setTipoAcceso(rs.getString(9));
+                cola.setIdOficina(rs.getInt(10));
+                //of.setId(rs.getInt(9));
             }
         } catch (Exception e) {
 
@@ -133,7 +135,7 @@ public class ColaboradorDAO {
             ps.setString(6, c.getCorreo());
             ps.setString(7, c.getPassword());
             ps.setString(8, c.getTipoAcceso());
-            //ps.setInt(9, c.getIDOficina());
+            ps.setInt(9, c.getIdOficina());
             ps.setInt(10, c.getRutColaborador());
             ps.executeUpdate();
         } catch (Exception e) {

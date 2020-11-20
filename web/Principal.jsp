@@ -26,7 +26,7 @@
                         <a style="margin-left: 10px; border: none" class="btn btn-outline-dark" href="Controlador?menu=Colaborador&accion=Listar" target="myFrame">Colabarador</a>
                     </li>
                     <li class="nav-item">
-                        <a style="margin-left: 10px; border: none" class="btn btn-outline-dark" href="Controlador?menu=Surcusal" target="myFrame">Surcusal</a>
+                        <a style="margin-left: 10px; border: none" class="btn btn-outline-dark" href="Controlador?menu=Surcusal&accion=Listar" target="myFrame">Surcusal</a>
                     </li>
                     <li class="nav-item">
                         <a style="margin-left: 10px; border: none" class="btn btn-outline-dark" href="Controlador?menu=Pago" target="myFrame">Medio de pago</a>

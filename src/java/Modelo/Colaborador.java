@@ -1,5 +1,4 @@
 package Modelo;
-
 /**
  *
  * @author lainc
@@ -7,6 +6,7 @@ package Modelo;
 public class Colaborador {
     int RutColaborador;
     int Telefono;
+    int IdOficina;
     String Nombre;
     String Apellido;
     String Usuario;
@@ -14,14 +14,14 @@ public class Colaborador {
     String Correo;
     String Password;
     String TipoAcceso;
-    private Oficina oficina;
 
     public Colaborador() {
     }
 
-    public Colaborador(int RutColaborador, int Telefono, String Nombre, String Apellido, String Usuario, String Direccion, String Correo, String Password, String TipoAcceso, Oficina oficina) {
+    public Colaborador(int RutColaborador, int Telefono, int IdOficina, String Nombre, String Apellido, String Usuario, String Direccion, String Correo, String Password, String TipoAcceso) {
         this.RutColaborador = RutColaborador;
         this.Telefono = Telefono;
+        this.IdOficina = IdOficina;
         this.Nombre = Nombre;
         this.Apellido = Apellido;
         this.Usuario = Usuario;
@@ -29,7 +29,6 @@ public class Colaborador {
         this.Correo = Correo;
         this.Password = Password;
         this.TipoAcceso = TipoAcceso;
-        this.oficina = oficina;
     }
 
     public int getRutColaborador() {
@@ -46,6 +45,14 @@ public class Colaborador {
 
     public void setTelefono(int Telefono) {
         this.Telefono = Telefono;
+    }
+
+    public int getIdOficina() {
+        return IdOficina;
+    }
+
+    public void setIdOficina(int IdOficina) {
+        this.IdOficina = IdOficina;
     }
 
     public String getNombre() {
@@ -104,13 +111,6 @@ public class Colaborador {
         this.TipoAcceso = TipoAcceso;
     }
 
-    public Oficina getOficina() {
-        return oficina;
-    }
-
-    public void setOficina(Oficina oficinas) {
-        this.oficina = oficinas;
-    }
     
-    
+  
 }
