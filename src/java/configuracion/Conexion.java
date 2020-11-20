@@ -10,7 +10,7 @@ import java.sql.DriverManager;
  */
 public class Conexion {
     Connection Conectar;
-    String url="jdbc:mysql://localhost:3306/sistemacontrolpago";
+    String url="jdbc:mysql://localhost:3306/controlpagobd";
     String user="root";
     String pass="";
     
