@@ -66,7 +66,6 @@ public class ColaboradorDAO {
                 co.setPassword(rs.getString(8));
                 co.setTipoAcceso(rs.getString(9));
                 co.setIdOficina(rs.getInt(10));
-                //of.setId(rs.getInt(10));
                 lista.add(co);
             }
         } catch (Exception e) {
