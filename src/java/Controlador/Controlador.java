@@ -19,9 +19,10 @@ import javax.servlet.http.HttpServletResponse;
 public class Controlador extends HttpServlet {
 
     ColaboradorDAO codao = new ColaboradorDAO();
-    Colaborador co=new Colaborador();
+    Colaborador co = new Colaborador();
     OficinaDAO ofdao = new OficinaDAO();
-    Oficina of=new Oficina();
+    Oficina of = new Oficina();
+    int rutC;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -48,12 +49,12 @@ public class Controlador extends HttpServlet {
                     String correo = request.getParameter("txtCorreo");
                     String password = request.getParameter("txtPass");
                     String acceso = request.getParameter("cbAcceso");
-                    int idOficina =Integer.parseInt(request.getParameter("cbOficina"));
+                    int idOficina = Integer.parseInt(request.getParameter("cbOficina"));
                     co.setRutColaborador(rut);
                     co.setNombre(nombre);
                     co.setApellido(apellido);
-                    co.setUsuario(usuario);                    
-                    co.setDireccion(direccion); 
+                    co.setUsuario(usuario);
+                    co.setDireccion(direccion);
                     co.setTelefono(telefono);
                     co.setCorreo(correo);
                     co.setPassword(password);
@@ -62,9 +63,39 @@ public class Controlador extends HttpServlet {
                     codao.agregar(co);
                     request.getRequestDispatcher("Controlador?menu=Colaborador&accion=Listar").forward(request, response);
                     break;
+                case "Editar":
+                    rutC = Integer.parseInt(request.getParameter("RutColaborador"));
+                    Colaborador c = codao.listarRut(rutC);
+                    request.setAttribute("colaborador", c);
+                    request.getRequestDispatcher("Controlador?menu=Colaborador&accion=Listar").forward(request, response);
+                    break;
                 case "Actualizar":
+                    String nombres = request.getParameter("txtNombre");
+                    String apellidos = request.getParameter("txtApellido");
+                    String usuarios = request.getParameter("txtUsuario");
+                    String direcciones = request.getParameter("txtDireccion");
+                    int telefonos = Integer.parseInt(request.getParameter("txtTelefono"));
+                    String correos = request.getParameter("txtCorreo");
+                    String passwords = request.getParameter("txtPass");
+                    String accesos = request.getParameter("cbAcceso");
+                    int idOficinas = Integer.parseInt(request.getParameter("cbOficina"));
+                    co.setNombre(nombres);
+                    co.setApellido(apellidos);
+                    co.setUsuario(usuarios);
+                    co.setDireccion(direcciones);
+                    co.setTelefono(telefonos);
+                    co.setCorreo(correos);
+                    co.setPassword(passwords);
+                    co.setTipoAcceso(accesos);
+                    co.setIdOficina(idOficinas);
+                    co.setRutColaborador(rutC);
+                    codao.actualizar(co);
+                    request.getRequestDispatcher("Controlador?menu=Colaborador&accion=Listar").forward(request, response);
                     break;
                 case "Eliminar":
+                    rutC = Integer.parseInt(request.getParameter("RutColaborador"));
+                    codao.eliminar(rutC);
+                    request.getRequestDispatcher("Controlador?menu=Colaborador&accion=Listar").forward(request, response);
                     break;
                 default:
                     throw new AssertionError();

@@ -98,22 +98,22 @@ public class ColaboradorDAO {
 
     public Colaborador listarRut(int rut) {
         Colaborador cola = new Colaborador();
-        String sql = "select * from colaborador where RutColaborador=" + rut;
+        String sql ="select * from colaborador where RutColaborador="+rut;
         try {
             Conectar = cn.Conexion();
             ps = Conectar.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
+                cola.setRutColaborador(rs.getInt(1));
                 cola.setNombre(rs.getString(2));
                 cola.setApellido(rs.getString(3));
                 cola.setUsuario(rs.getString(4));
-                cola.setTelefono(rs.getInt(5));
-                cola.setCorreo(rs.getString(6));
-                cola.setDireccion(rs.getString(7));
+                cola.setDireccion(rs.getString(5));
+                cola.setTelefono(rs.getInt(6));
+                cola.setCorreo(rs.getString(7));               
                 cola.setPassword(rs.getString(8));
                 cola.setTipoAcceso(rs.getString(9));
                 cola.setIdOficina(rs.getInt(10));
-                //of.setId(rs.getInt(9));
             }
         } catch (Exception e) {
 
@@ -122,7 +122,7 @@ public class ColaboradorDAO {
     }
 
     public int actualizar(Colaborador c) {
-        String sql = "update colaborador set Nombre=?, Apellido=?, Usuario=?, Direccion=?, Telefono=?, Correo=?, Password=?, TipoDeAcceso=?, IDOficina=? where RutColaborador=?";
+        String sql ="update colaborador set Nombre=?, Apellido=?, Usuario=?, Direccion=?, Telefono=?, Correo=?, Password=?, Acceso=?, IdOficina=? where RutColaborador=?";
         try {
             Conectar = cn.Conexion();
             ps = Conectar.prepareStatement(sql);
@@ -144,7 +144,7 @@ public class ColaboradorDAO {
     }
 
     public void eliminar(int rutColaborador) {
-        String sql = "delete from colaborador where RutColaborador=" + rutColaborador;
+        String sql = "delete from colaborador where RutColaborador="+rutColaborador;
         try {
             Conectar = cn.Conexion();
             ps = Conectar.prepareStatement(sql);

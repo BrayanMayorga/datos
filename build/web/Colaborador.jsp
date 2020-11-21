@@ -22,38 +22,37 @@
             <div class="card">
                 <div class="card-body">
                     <form action="Controlador?menu=Colaborador" method="POST">
-
                         <div class="form-group">
                             <label>Rut</label>
-                            <input type="text" name="txtRut" class="form-control">
+                            <input type="text" value="${colaborador.getRutColaborador()}" name="txtRut" class="form-control" placeholder="Ingrese rut del colaborador ">
                         </div>
                         <div class="form-group">
                             <label>Nombre</label>
-                            <input type="text" name="txtNombre" class="form-control">
+                            <input type="text" value="${colaborador.getNombre()}" name="txtNombre" class="form-control">
                         </div>
                         <div class="form-group">
                             <label>Apellido</label>
-                            <input type="text" name="txtApellido" class="form-control">
+                            <input type="text" value="${colaborador.getApellido()}" name="txtApellido" class="form-control">
                         </div>
                         <div class="form-group">
                             <label>Usuario</label>
-                            <input type="text" name="txtUsuario" class="form-control">
+                            <input type="text" value="${colaborador.getUsuario()}" name="txtUsuario" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label>Direccio</label>
-                            <input type="text" name="txtDireccion" class="form-control">
+                            <label>Direccion</label>
+                            <input type="text" value="${colaborador.getDireccion()}" name="txtDireccion" class="form-control">
                         </div>
                         <div class="form-group">
                             <label>Telefono</label>
-                            <input type="text" name="txtTelefono" class="form-control">
+                            <input type="text" value="${colaborador.getTelefono()}" name="txtTelefono" class="form-control">
                         </div>
                         <div class="form-group">
                             <label>Correo</label>
-                            <input type="text" name="txtCorreo" class="form-control">
+                            <input type="text" value="${colaborador.getCorreo()}" name="txtCorreo" class="form-control">
                         </div>
                         <div class="form-group">
                             <label>Contraseña</label>
-                            <input type="text" name="txtPass" class="form-control">
+                            <input type="password" value="${colaborador.getPassword()}" name="txtPass" class="form-control">
                         </div>
                         <div class="form-group form-group-lg">
                             <label class="control-label">Acceso</label><br>
@@ -78,6 +77,7 @@
                             </div>
                         </div>
                         <input type="submit" name="accion" value="Agregar" class="btn btn-primary">
+                        <input type="submit" name="accion" value="Actualizar" class="btn btn-success">
                     </form>
                 </div>                         
             </div>
@@ -107,9 +107,8 @@
                                     <td>${co.getTelefono()}</td>
                                     <td>${co.getCorreo()}</td>
                                     <td>
-                                        <a class="btn btn-warning" href="">Editar</a>
-                                        <a class="btn btn-danger" href="">Eliminar</a>
-
+                                        <a class="btn btn-warning" href="Controlador?menu=Colaborador&accion=Editar&RutColaborador=${co.getRutColaborador()}">Editar</a>
+                                        <a class="btn btn-danger" href="Controlador?menu=Colaborador&accion=Eliminar&RutColaborador=${co.getRutColaborador()}">Eliminar</a>
                                     </td>
                                 </tr>
                             </c:forEach>
