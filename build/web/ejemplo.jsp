@@ -1,86 +1,250 @@
-<%-- 
-    Document   : ejemplo
-    Created on : 20/11/2020, 09:56:20 PM
-    Author     : lainc
---%>
-
+<%@page import="Modelo.Colaborador"%>
+<%@page import="Modelo.ColaboradorDAO"%>
 <%@page import="java.util.List"%>
 <%@page import="Modelo.Oficina"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    String buscar = "";
+    String msje = "";
+    Colaborador colab = null;
+%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-        <title>Iniciar session</title>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>Sistema control de pago SPA</title>
+
+        <!-- Bootstrap core CSS -->
+        <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom styles for this template -->
+        <link href="css/simple-sidebar.css" rel="stylesheet">
+        <link href="css/alertify.min.css" rel="stylesheet" type="text/css"/>
+        <link href="css/default.min.css" rel="stylesheet" type="text/css"/>
     </head>
+
     <body>
-        <br>
-        <br>
-        <div class="container mt-4 col-lg-4">
-            <div class="card col-sm-10">
-                <div class="card-body">
-                    <form class="form-sign" action="Validar" method="POST">
-                        <div class="form-group">
-                            <label>Rut</label>
-                            <input type="text" name="txtRut" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Nombre</label>
-                            <input type="text" name="txtNombre" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Apellido</label>
-                            <input type="text" name="txtApellido" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Usuario</label>
-                            <input type="text" name="txtUsuario" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Direccio</label>
-                            <input type="text" name="txtDireccion" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Telefono</label>
-                            <input type="text" name="txtTelefono" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Correo</label>
-                            <input type="text" name="txtCorreo" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Contraseña</label>
-                            <input type="text" name="txtPass" class="form-control">
-                        </div>
-                        <div class="form-group form-group-lg">
-                            <label class="control-label">Acceso</label><br>
-                            <div>
-                                <select class="form-control" name="cbAcceso">
-                                    <option>Administrador/a</option>
-                                    <option>Secretaria/o</option>
-                                    <option>Contador/a</option>                
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group form-group-lg">
-                            <label class="control-label">Surcusal</label><br>
-                            <div>
-                                <select class="form-control" name="cbOficina">
-                                    <% List<Oficina> listaOf = (List<Oficina>) request.getAttribute("oficinas");
-                                        if (listaOf != null)
-                                            for (Oficina oficina : listaOf) {%>
-                                    <option value="<%=oficina.getId()%>"><%=oficina.getNom()%></option>
-                                    <%}%>                     
-                                </select>
-                            </div>
-                        </div>
-                        <input type="submit" name="accion" value="Agregar" class="btn btn-primary">
-                    </form>
+        <div class="d-flex" id="wrapper">
+            <!-- Sidebar -->
+            <div class="bg-light border-right" id="sidebar-wrapper">
+                <div class="sidebar-heading">Sistema Web</div>
+                <div class="list-group list-group-flush">
+                    <a href="index.html" class="list-group-item list-group-item-action bg-light">Inicio</a>
+                    <a href="Categorias.jsp" class="list-group-item list-group-item-action bg-light">Categorias</a>
+                    <a href="Productos.jsp" class="list-group-item list-group-item-action bg-light">Productos</a>
+                    <a href="#" class="list-group-item list-group-item-action bg-light">Contacto</a>
+                    <a href="#" class="list-group-item list-group-item-action bg-light">Soporte</a>
                 </div>
             </div>
+            <!-- /#sidebar-wrapper -->
+
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+
+                <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+                    <button class="btn btn-primary" id="menu-toggle">Ocultar Sidebar</button>
+
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item active">
+                                <a class="nav-link" href="#">Iniciar Sesion <span class="sr-only">(current)</span></a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </nav>
+
+                <div class="container-fluid">
+                    <div class="col-md-8">
+                        <h1>Registrar Colaboradores</h1>
+                        <form name="frmProductos" action="Productos.jsp" method="post" onsubmit="return validar(this)">
+                            <%
+                                if (msje.length() > 0) {
+                                    out.print("<div class=\"error\">" + msje + "</div>");
+                                }
+                            %>
+                            <div class="row">                   
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Surcusal</label>
+                                        <div>
+                                            <select class="form-control" name="cboCategoria">
+                                                <option>Eliga una Oficina</option>
+                                                <%
+                                                    ColaboradorDAO dao = new ColaboradorDAO();
+                                                    List<Oficina> oficinas = null;
+
+                                                    try {
+                                                        oficinas = dao.listar();
+                                                        for (Oficina cat : oficinas) {
+                                                            out.print("<option value=\"" + cat.getId() + "\" "
+                                                                    + (colab != null
+                                                                    && cat.getId() == colab.getIdOficina()
+                                                                    ? "selected" : "") + ">"
+                                                                    + cat.getNom() + "</option>");
+                                                        }
+                                                    } catch (Exception e) {
+                                                        out.print("<option value=\"0\">No se pudo listar"
+                                                                + "las oficinas</option>");
+                                                    } finally {
+                                                        oficinas = null;
+                                                        dao = null;
+                                                    }
+                                                %>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Nombre</label>
+                                        <input type="text" class="form-control" name="txtNombre" 
+                                               placeholder="Ingrese Nombre">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Rut</label>
+                                        <input type="text" class="form-control" name="txtNombre" 
+                                               placeholder="Ingrese Nombre">
+                                    </div>
+                                </div>
+                            </div>                                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Apellido</label>
+                                        <input type="text" class="form-control" name="txtApellido" placeholder="Ingrese Descripcion">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Usuario</label>
+                                        <input type="text" class="form-control" name="txtApellido" placeholder="Ingrese Descripcion">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Direccion</label>
+                                        <input type="text" class="form-control" name="txtUsuario" 
+                                               placeholder="Ingrese nombre de usuario">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Telefono</label>
+                                        <input type="text" class="form-control" name="txtDireccion" 
+                                               placeholder="ingrese su direccion">
+                                    </div> 
+                                </div>
+                            </div>
+                            <input type="submit" class="btn btn-success" name="btnRegistrar" value="Registrar">
+                            <a href="Login.jsp" class="btn btn-danger">Cancelar</a>
+                        </form><br>
+                    </div>
+                    <div class="col-md-12">
+                        <h1>Listado de Colaboradores</h1>
+                        <form name="frmBuscar" action="Productos.jsp" method="post">
+                            <div class="form-group">
+                                <div class="form-inline">                                    
+                                    <input type="text" class="form-control col-md-10 col-sm-8" placeholder="Escriba el nombre del producto" name="txtProducto" value="<%=buscar%>" >
+                                    <input type="submit" name="btnBuscar" class="btn btn-dark col-md-2 col-sm-8" value="Buscar Producto">                               
+                                </div>
+
+                            </div>
+                        </form>
+                        <div class="table-responsive" >                                 
+                            <table class="table table-hover table-striped table-bordered">
+                                <thead class="btn-info">
+                                    <tr>
+                                        <th class="text-center">N°</th>
+                                        <th class="text-center">Rut</th>
+                                        <th class="text-center">Nombre</th>
+                                        <th class="text-center">Apellido</th>
+                                        <th class="text-center">Usuario</th>
+                                        <th class="text-center">Surcusal</th>
+                                        <th class="text-center">Acciones</th>              
+                                    </tr>
+                                </thead>
+                                <style>
+                                    .roci{
+                                        color: white;                                      
+                                    }
+                                </style>
+                                <%
+                                    ColaboradorDAO daoprod = new ColaboradorDAO();
+                                    List<Colaborador> colaboradores = null;
+                                    int i = 1;
+
+                                    try {
+                                        colaboradores = daoprod.listar();
+                                        for (Colaborador col : colaboradores) {
+                                            out.print("<tr>"
+                                                    + "<td>" + i + "</td>"
+                                                    + "<td>" + col.getRutColaborador() + "</td>"
+                                                    + "<td>" + col.getNombre() + "</td>"
+                                                    + "<td>" + col.getApellido() + "</td>"
+                                                    + "<td>" + col.getUsuario() + "</td>"
+                                                    + "<td>" + col.getIdOficina() + "</td>"
+                                                    + "<td class=\"text-center\">"
+                                                    + "<a class=\"btn btn-warning btn-sm\" href=\"editarproducto.jsp?cod="
+                                                    + col.getRutColaborador() + "\"> Editar</a> "
+                                                    + "<a class=\"btn btn-danger btn-sm roci\" href=\"eliminarproducto.jsp?cod="
+                                                    + col.getRutColaborador() + "\"> Eliminar</a>"
+                                                    + "</td>"
+                                                    + "</tr>");
+                                            i++;
+                                        }
+
+                                    } catch (Exception e) {
+                                        out.print("<tr><td colspan=\"3\">"
+                                                + e.getMessage() + "No se pudo listar las productos</td></tr>");
+                                    } finally {
+                                        dao = null;
+                                        if (colaboradores != null) {
+                                            colaboradores.clear();
+                                        }
+                                        colaboradores = null;
+                                    }
+                                %>                                                          
+                                <!-- <a class="icon-pencil2" data-toggle="tooltip" data-placement="right" title="Editar" href="Controlador"></a>
+                                </td>-->
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /#page-content-wrapper -->
         </div>
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+        <!-- /#wrapper -->
+
+        <!-- Bootstrap core JavaScript -->
+        <script src="vendor/jquery/jquery.min.js"></script>
+        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="css/alertify.min.js" type="text/javascript"></script>
+        <script src="JavaScript/ValidarProducto.js" type="text/javascript"></script>
+        <!-- Menu Toggle Script -->
+        <script>
+                            $("#menu-toggle").click(function (e) {
+                                e.preventDefault();
+                                $("#wrapper").toggleClass("toggled");
+                            });
+        </script>
     </body>
 </html>

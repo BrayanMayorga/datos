@@ -94,7 +94,7 @@
                     </form>
                 </div>                         
             </div>
-        </div>                     
+        </div>
         <div class="col-sm-9">
             <div class="card">
                 <div class="card-body">
@@ -142,10 +142,10 @@
     <script src="js/alertify.min.js" type="text/javascript"></script>
     <script src="js/validar.js" type="text/javascript"></script>
     <script>
-        $("#menu-toggle").click(function (e) {
-            e.preventDefault();
-            $("#wrapper").toggleClass("toggled");
-        });
-</script>
+                        $("#menu-toggle").click(function (e) {
+                            e.preventDefault();
+                            $("#wrapper").toggleClass("toggled");
+                        });
+    </script>
 </body>
 </html>

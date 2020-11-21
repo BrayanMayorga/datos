@@ -3,6 +3,8 @@ package org.apache.jsp;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
+import Modelo.Colaborador;
+import Modelo.ColaboradorDAO;
 import java.util.List;
 import Modelo.Oficina;
 
@@ -48,92 +50,247 @@ public final class ejemplo_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\n");
       out.write("\n");
       out.write("\n");
-      out.write("<!DOCTYPE html>\n");
-      out.write("<html>\n");
-      out.write("    <head>\n");
-      out.write("        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n");
-      out.write("        <link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css\" integrity=\"sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2\" crossorigin=\"anonymous\">\n");
-      out.write("        <title>Iniciar session</title>\n");
-      out.write("    </head>\n");
-      out.write("    <body>\n");
-      out.write("        <br>\n");
-      out.write("        <br>\n");
-      out.write("        <div class=\"container mt-4 col-lg-4\">\n");
-      out.write("            <div class=\"card col-sm-10\">\n");
-      out.write("                <div class=\"card-body\">\n");
-      out.write("                    <form class=\"form-sign\" action=\"Validar\" method=\"POST\">\n");
-      out.write("                        <div class=\"form-group\">\n");
-      out.write("                            <label>Rut</label>\n");
-      out.write("                            <input type=\"text\" name=\"txtRut\" class=\"form-control\">\n");
-      out.write("                        </div>\n");
-      out.write("                        <div class=\"form-group\">\n");
-      out.write("                            <label>Nombre</label>\n");
-      out.write("                            <input type=\"text\" name=\"txtNombre\" class=\"form-control\">\n");
-      out.write("                        </div>\n");
-      out.write("                        <div class=\"form-group\">\n");
-      out.write("                            <label>Apellido</label>\n");
-      out.write("                            <input type=\"text\" name=\"txtApellido\" class=\"form-control\">\n");
-      out.write("                        </div>\n");
-      out.write("                        <div class=\"form-group\">\n");
-      out.write("                            <label>Usuario</label>\n");
-      out.write("                            <input type=\"text\" name=\"txtUsuario\" class=\"form-control\">\n");
-      out.write("                        </div>\n");
-      out.write("                        <div class=\"form-group\">\n");
-      out.write("                            <label>Direccio</label>\n");
-      out.write("                            <input type=\"text\" name=\"txtDireccion\" class=\"form-control\">\n");
-      out.write("                        </div>\n");
-      out.write("                        <div class=\"form-group\">\n");
-      out.write("                            <label>Telefono</label>\n");
-      out.write("                            <input type=\"text\" name=\"txtTelefono\" class=\"form-control\">\n");
-      out.write("                        </div>\n");
-      out.write("                        <div class=\"form-group\">\n");
-      out.write("                            <label>Correo</label>\n");
-      out.write("                            <input type=\"text\" name=\"txtCorreo\" class=\"form-control\">\n");
-      out.write("                        </div>\n");
-      out.write("                        <div class=\"form-group\">\n");
-      out.write("                            <label>Contraseña</label>\n");
-      out.write("                            <input type=\"text\" name=\"txtPass\" class=\"form-control\">\n");
-      out.write("                        </div>\n");
-      out.write("                        <div class=\"form-group form-group-lg\">\n");
-      out.write("                            <label class=\"control-label\">Acceso</label><br>\n");
-      out.write("                            <div>\n");
-      out.write("                                <select class=\"form-control\" name=\"cbAcceso\">\n");
-      out.write("                                    <option>Administrador/a</option>\n");
-      out.write("                                    <option>Secretaria/o</option>\n");
-      out.write("                                    <option>Contador/a</option>                \n");
-      out.write("                                </select>\n");
-      out.write("                            </div>\n");
-      out.write("                        </div>\n");
-      out.write("                        <div class=\"form-group form-group-lg\">\n");
-      out.write("                            <label class=\"control-label\">Surcusal</label><br>\n");
-      out.write("                            <div>\n");
-      out.write("                                <select class=\"form-control\" name=\"cbOficina\">\n");
-      out.write("                                    ");
- List<Oficina> listaOf = (List<Oficina>) request.getAttribute("oficinas");
-                                        if (listaOf != null)
-                                            for (Oficina oficina : listaOf) {
       out.write("\n");
-      out.write("                                    <option value=\"");
-      out.print(oficina.getId());
-      out.write('"');
-      out.write('>');
-      out.print(oficina.getNom());
-      out.write("</option>\n");
-      out.write("                                    ");
-}
-      out.write("                     \n");
-      out.write("                                </select>\n");
-      out.write("                            </div>\n");
-      out.write("                        </div>\n");
-      out.write("                        <input type=\"submit\" name=\"accion\" value=\"Agregar\" class=\"btn btn-primary\">\n");
-      out.write("                    </form>\n");
+
+    String buscar = "";
+    String msje = "";
+    Colaborador colab = null;
+
+      out.write("\n");
+      out.write("<!DOCTYPE html>\n");
+      out.write("<html lang=\"en\">\n");
+      out.write("\n");
+      out.write("    <head>\n");
+      out.write("\n");
+      out.write("        <meta charset=\"utf-8\">\n");
+      out.write("        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">\n");
+      out.write("        <meta name=\"description\" content=\"\">\n");
+      out.write("        <meta name=\"author\" content=\"\">\n");
+      out.write("\n");
+      out.write("        <title>Sistema control de pago SPA</title>\n");
+      out.write("\n");
+      out.write("        <!-- Bootstrap core CSS -->\n");
+      out.write("        <link href=\"vendor/bootstrap/css/bootstrap.min.css\" rel=\"stylesheet\">\n");
+      out.write("\n");
+      out.write("        <!-- Custom styles for this template -->\n");
+      out.write("        <link href=\"css/simple-sidebar.css\" rel=\"stylesheet\">\n");
+      out.write("        <link href=\"css/alertify.min.css\" rel=\"stylesheet\" type=\"text/css\"/>\n");
+      out.write("        <link href=\"css/default.min.css\" rel=\"stylesheet\" type=\"text/css\"/>\n");
+      out.write("    </head>\n");
+      out.write("\n");
+      out.write("    <body>\n");
+      out.write("        <div class=\"d-flex\" id=\"wrapper\">\n");
+      out.write("            <!-- Sidebar -->\n");
+      out.write("            <div class=\"bg-light border-right\" id=\"sidebar-wrapper\">\n");
+      out.write("                <div class=\"sidebar-heading\">Sistema Web</div>\n");
+      out.write("                <div class=\"list-group list-group-flush\">\n");
+      out.write("                    <a href=\"index.html\" class=\"list-group-item list-group-item-action bg-light\">Inicio</a>\n");
+      out.write("                    <a href=\"Categorias.jsp\" class=\"list-group-item list-group-item-action bg-light\">Categorias</a>\n");
+      out.write("                    <a href=\"Productos.jsp\" class=\"list-group-item list-group-item-action bg-light\">Productos</a>\n");
+      out.write("                    <a href=\"#\" class=\"list-group-item list-group-item-action bg-light\">Contacto</a>\n");
+      out.write("                    <a href=\"#\" class=\"list-group-item list-group-item-action bg-light\">Soporte</a>\n");
       out.write("                </div>\n");
       out.write("            </div>\n");
+      out.write("            <!-- /#sidebar-wrapper -->\n");
+      out.write("\n");
+      out.write("            <!-- Page Content -->\n");
+      out.write("            <div id=\"page-content-wrapper\">\n");
+      out.write("\n");
+      out.write("                <nav class=\"navbar navbar-expand-lg navbar-light bg-light border-bottom\">\n");
+      out.write("                    <button class=\"btn btn-primary\" id=\"menu-toggle\">Ocultar Sidebar</button>\n");
+      out.write("\n");
+      out.write("                    <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarSupportedContent\" aria-controls=\"navbarSupportedContent\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\n");
+      out.write("                        <span class=\"navbar-toggler-icon\"></span>\n");
+      out.write("                    </button>\n");
+      out.write("\n");
+      out.write("                    <div class=\"collapse navbar-collapse\" id=\"navbarSupportedContent\">\n");
+      out.write("                        <ul class=\"navbar-nav ml-auto mt-2 mt-lg-0\">\n");
+      out.write("                            <li class=\"nav-item active\">\n");
+      out.write("                                <a class=\"nav-link\" href=\"index.html\">Home <span class=\"sr-only\">(current)</span></a>\n");
+      out.write("                            </li>\n");
+      out.write("                            <li class=\"nav-item active\">\n");
+      out.write("                                <a class=\"nav-link\" href=\"#\">Iniciar Sesion <span class=\"sr-only\">(current)</span></a>\n");
+      out.write("                            </li>\n");
+      out.write("\n");
+      out.write("                        </ul>\n");
+      out.write("                    </div>\n");
+      out.write("                </nav>\n");
+      out.write("\n");
+      out.write("                <div class=\"container-fluid\">\n");
+      out.write("                    <div class=\"col-md-8\">\n");
+      out.write("                        <h1>Registrar Colaboradores</h1>\n");
+      out.write("                        <form name=\"frmProductos\" action=\"Productos.jsp\" method=\"post\" onsubmit=\"return validar(this)\">\n");
+      out.write("                            ");
+
+                                if (msje.length() > 0) {
+                                    out.print("<div class=\"error\">" + msje + "</div>");
+                                }
+                            
+      out.write("\n");
+      out.write("                            <div class=\"row\">\n");
+      out.write("                                <div class=\"col-md-6\">\n");
+      out.write("                                    <div class=\"form-group\">\n");
+      out.write("                                        <label>Categoria</label>\n");
+      out.write("                                        <div>\n");
+      out.write("                                            <select class=\"form-control\" name=\"cboCategoria\">\n");
+      out.write("                                                <option>Eliga una Oficina</option>\n");
+      out.write("                                                ");
+
+                                                    ColaboradorDAO dao = new ColaboradorDAO();
+                                                    List<Oficina> oficinas = null;
+
+                                                    try {
+                                                        oficinas = dao.listar();
+                                                        for (Oficina cat : oficinas) {
+                                                            out.print("<option value=\"" + cat.getId()+ "\" "
+                                                                    + (colab != null
+                                                                    && cat.getId()== colab.getIdOficina()
+                                                                    ? "selected" : "") + ">"
+                                                                    + cat.getNom()+ "</option>");
+                                                        }
+                                                    } catch (Exception e) {
+                                                        out.print("<option value=\"0\">No se pudo listar"
+                                                                + "las oficinas</option>");
+                                                    } finally {
+                                                        oficinas = null;
+                                                        dao = null;
+                                                    }
+                                                
+      out.write("\n");
+      out.write("                                            </select>\n");
+      out.write("                                        </div>\n");
+      out.write("                                    </div>\n");
+      out.write("                                </div>\n");
+      out.write("                                <div class=\"col-md-6\">\n");
+      out.write("                                    <div class=\"form-group\">\n");
+      out.write("                                        <label>Nombre del Producto</label>\n");
+      out.write("                                        <input type=\"text\" class=\"form-control\" name=\"txtNombre\" \n");
+      out.write("                                               placeholder=\"Ingrese Nombre\">\n");
+      out.write("                                    </div>\n");
+      out.write("                                </div>\n");
+      out.write("                            </div>\n");
+      out.write("                            <div class=\"row\">\n");
+      out.write("                                <div class=\"col-md-12\">\n");
+      out.write("                                    <div class=\"form-group\">\n");
+      out.write("                                        <label>Descripcion</label>\n");
+      out.write("                                        <input type=\"text\" class=\"form-control\" name=\"txtDescripcion\" placeholder=\"Ingrese Descripcion\">\n");
+      out.write("                                    </div>\n");
+      out.write("                                </div>\n");
+      out.write("                            </div>\n");
+      out.write("                            <div class=\"row\">\n");
+      out.write("                                <div class=\"col-md-6\">\n");
+      out.write("                                    <div class=\"form-group\">\n");
+      out.write("                                        <label>Precio de Compra</label>\n");
+      out.write("                                        <input type=\"text\" class=\"form-control\" name=\"txtPrecio\" \n");
+      out.write("                                               placeholder=\"S/. 50.60\">\n");
+      out.write("                                    </div>\n");
+      out.write("                                </div>\n");
+      out.write("                                <div class=\"col-md-6\">\n");
+      out.write("                                    <div class=\"form-group\">\n");
+      out.write("                                        <label>Precio Minimo de Venta</label>\n");
+      out.write("                                        <input type=\"text\" class=\"form-control\" name=\"txtPrecioM\" \n");
+      out.write("                                               placeholder=\"S/. 60.20\">\n");
+      out.write("                                    </div> \n");
+      out.write("                                </div>\n");
+      out.write("                            </div>\n");
+      out.write("                            <input type=\"submit\" class=\"btn btn-success\" name=\"btnRegistrar\" value=\"Registrar\">\n");
+      out.write("                            <a href=\"index.html\" class=\"btn btn-danger\">Cancelar</a>\n");
+      out.write("                        </form><br>\n");
+      out.write("                    </div>\n");
+      out.write("                    <div class=\"col-md-12\">\n");
+      out.write("                        <h1>Listado de Productos</h1>\n");
+      out.write("                        <form name=\"frmBuscar\" action=\"Productos.jsp\" method=\"post\">\n");
+      out.write("                            <div class=\"form-group\">\n");
+      out.write("                                <div class=\"form-inline\">                                    \n");
+      out.write("                                    <input type=\"text\" class=\"form-control col-md-10 col-sm-8\" placeholder=\"Escriba el nombre del producto\" name=\"txtProducto\" value=\"");
+      out.print(buscar);
+      out.write("\" >\n");
+      out.write("                                    <input type=\"submit\" name=\"btnBuscar\" class=\"btn btn-dark col-md-2 col-sm-8\" value=\"Buscar Producto\">                               \n");
+      out.write("                                </div>\n");
+      out.write("\n");
+      out.write("                            </div>\n");
+      out.write("                        </form>\n");
+      out.write("                        <div class=\"table-responsive\" >                                 \n");
+      out.write("                            <table class=\"table table-hover table-striped table-bordered\">\n");
+      out.write("                                <thead class=\"btn-info\">\n");
+      out.write("                                    <tr>\n");
+      out.write("                                        <th class=\"text-center\">N°</th>\n");
+      out.write("                                        <th class=\"text-center\">Producto</th>\n");
+      out.write("                                        <th class=\"text-center\">Descripcion</th>\n");
+      out.write("                                        <th class=\"text-center\">Precio Compra</th>\n");
+      out.write("                                        <th class=\"text-center\">Precio Venta</th>\n");
+      out.write("                                        <th class=\"text-center\">Categoria</th>\n");
+      out.write("                                        <th class=\"text-center\">Acciones</th>              \n");
+      out.write("                                    </tr>\n");
+      out.write("                                </thead>\n");
+      out.write("                                <style>\n");
+      out.write("                                    .roci{\n");
+      out.write("                                        color: white;                                      \n");
+      out.write("                                    }\n");
+      out.write("                                </style>\n");
+      out.write("                                ");
+
+                                    ColaboradorDAO daoprod = new ColaboradorDAO();
+                                    List<Colaborador> colaboradores = null;
+                                    int i = 1;
+
+                                    try {
+                                        colaboradores = daoprod.listar();
+                                        for (Colaborador col : colaboradores) {
+                                            out.print("<tr>"
+                                                    + "<td>" + i + "</td>"
+                                                    + "<td>" + col.getRutColaborador()+ "</td>"
+                                                    + "<td>" + col.getNombre()+ "</td>"
+                                                    + "<td>" + col.getApellido()+ "</td>"
+                                                    + "<td>" + col.getUsuario()+ "</td>"
+                                                    + "<td>" + col.getIdOficina() + "</td>"
+                                                    + "<td class=\"text-center\">"
+                                                    + "<a class=\"btn btn-warning btn-sm\" href=\"editarproducto.jsp?cod="
+                                                    + col.getRutColaborador()+ "\"> Editar</a> "
+                                                    + "<a class=\"btn btn-danger btn-sm roci\" href=\"eliminarproducto.jsp?cod="
+                                                    + col.getRutColaborador()+ "\"> Eliminar</a>"
+                                                    + "</td>"
+                                                    + "</tr>");
+                                            i++;
+                                        }
+
+                                    } catch (Exception e) {
+                                        out.print("<tr><td colspan=\"3\">"
+                                                + e.getMessage() + "No se pudo listar las productos</td></tr>");
+                                    } finally {
+                                        dao = null;
+                                        if (colaboradores != null) {
+                                            colaboradores.clear();
+                                        }
+                                        colaboradores = null;
+                                    }
+                                
+      out.write("                                                          \n");
+      out.write("                                <!-- <a class=\"icon-pencil2\" data-toggle=\"tooltip\" data-placement=\"right\" title=\"Editar\" href=\"Controlador\"></a>\n");
+      out.write("                                </td>-->\n");
+      out.write("                            </table>\n");
+      out.write("                        </div>\n");
+      out.write("                    </div>\n");
+      out.write("                </div>\n");
+      out.write("            </div>\n");
+      out.write("            <!-- /#page-content-wrapper -->\n");
       out.write("        </div>\n");
-      out.write("        <script src=\"https://code.jquery.com/jquery-3.5.1.slim.min.js\" integrity=\"sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj\" crossorigin=\"anonymous\"></script>\n");
-      out.write("        <script src=\"https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js\" integrity=\"sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx\" crossorigin=\"anonymous\"></script>\n");
+      out.write("        <!-- /#wrapper -->\n");
+      out.write("\n");
+      out.write("        <!-- Bootstrap core JavaScript -->\n");
+      out.write("        <script src=\"vendor/jquery/jquery.min.js\"></script>\n");
+      out.write("        <script src=\"vendor/bootstrap/js/bootstrap.bundle.min.js\"></script>\n");
+      out.write("        <script src=\"css/alertify.min.js\" type=\"text/javascript\"></script>\n");
+      out.write("        <script src=\"JavaScript/ValidarProducto.js\" type=\"text/javascript\"></script>\n");
+      out.write("        <!-- Menu Toggle Script -->\n");
+      out.write("        <script>\n");
+      out.write("                            $(\"#menu-toggle\").click(function (e) {\n");
+      out.write("                                e.preventDefault();\n");
+      out.write("                                $(\"#wrapper\").toggleClass(\"toggled\");\n");
+      out.write("                            });\n");
+      out.write("        </script>\n");
       out.write("    </body>\n");
-      out.write("</html>\n");
+      out.write("</html>");
     } catch (Throwable t) {
       if (!(t instanceof SkipPageException)){
         out = _jspx_out;
