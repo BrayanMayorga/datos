@@ -37,7 +37,7 @@
                         %>
                         <div class="form-group">
                             <label>Rut</label>
-                            <input type="text" id="test" value="${colaborador.getRutColaborador()}" name="txtRut" class="form-control" required oninput="checkRut(this)">
+                            <input type="text" value="${colaborador.getRutColaborador()}" name="txtRut" class="form-control" required oninput="checkRut(this)">
                         </div>
                         <div class="form-group">
                             <label>Nombre</label>
