@@ -10,6 +10,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+        <link href="css/alertify.min.css" rel="stylesheet" type="text/css"/>
+        <link href="css/default.min.css" rel="stylesheet" type="text/css"/>
         <title>Iniciar session</title>
     </head>
     <body>
@@ -19,6 +21,7 @@
             <div class="card col-sm-10">
                 <div class="card-body">
                     <form class="form-sign" action="Validar" method="POST">
+                        
                         <div class="form-group text-center">
                             <h3> INICIO DE SESSION</h3>
                             <img src="img/contadorlogo.png" alt="logo" width="120"/>
@@ -26,11 +29,11 @@
                         </div>
                         <div class="form-group">
                             <label>Usuario:</label>
-                            <input type="text" name="txtusuario" class="form-control">
+                            <input type="text" name="txtusuario" class="form-control" required="">
                         </div>
                         <div class="form-group">
                             <label>Contraseña:</label>
-                            <input type="password" name="txtpass" class="form-control">
+                            <input type="password" name="txtpass" class="form-control" required="">
                         </div>
                         <input type="submit" name="accion" value="Ingresar" class="btn btn-primary btn-block">
                     </form>

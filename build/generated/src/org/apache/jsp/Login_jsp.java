@@ -44,6 +44,10 @@ public final class Login_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\n");
       out.write("\n");
       out.write("\n");
+
+    String msje = "";
+
+      out.write("\n");
       out.write("<!DOCTYPE html>\n");
       out.write("<html>\n");
       out.write("    <head>\n");
@@ -57,7 +61,14 @@ public final class Login_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        <div class=\"container mt-4 col-lg-4\">\n");
       out.write("            <div class=\"card col-sm-10\">\n");
       out.write("                <div class=\"card-body\">\n");
-      out.write("                    <form class=\"form-sign\" action=\"Validar\" method=\"POST\">\n");
+      out.write("                    <form name=\"frmLogin\" class=\"form-sign\" action=\"Validar\" method=\"POST\" onsubmit=\"return validar(this)\">\n");
+      out.write("                        ");
+
+                            if (msje.length() > 0) {
+                                out.print("<div class=\"error\">" + msje + "</div>");
+                            }
+                        
+      out.write("\n");
       out.write("                        <div class=\"form-group text-center\">\n");
       out.write("                            <h3> INICIO DE SESSION</h3>\n");
       out.write("                            <img src=\"img/contadorlogo.png\" alt=\"logo\" width=\"120\"/>\n");
@@ -78,6 +89,7 @@ public final class Login_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        </div>\n");
       out.write("        <script src=\"https://code.jquery.com/jquery-3.5.1.slim.min.js\" integrity=\"sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj\" crossorigin=\"anonymous\"></script>\n");
       out.write("        <script src=\"https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js\" integrity=\"sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx\" crossorigin=\"anonymous\"></script>\n");
+      out.write("        <script src=\"js/login.js\" type=\"text/javascript\"></script>\n");
       out.write("    </body>\n");
       out.write("</html>\n");
     } catch (Throwable t) {
