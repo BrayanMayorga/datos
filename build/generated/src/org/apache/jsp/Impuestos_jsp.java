@@ -133,7 +133,7 @@ public final class Impuestos_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        <h1>nombre de la persona</h1>\n");
       out.write("    </div>\n");
       out.write("    <div class=\"col-xs-6 text-right\">\n");
-      out.write("        <h1>Impuestos</h1>\n");
+      out.write("        <h1>Impuestos/brayan</h1>\n");
       out.write("        <h1><small>N°3</small></h1>\n");
       out.write("\n");
       out.write("    </div>\n");

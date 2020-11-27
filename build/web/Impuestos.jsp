@@ -76,7 +76,7 @@
         <h1>nombre de la persona</h1>
     </div>
     <div class="col-xs-6 text-right">
-        <h1>Impuestos</h1>
+        <h1>Impuestos/brayan</h1>
         <h1><small>N°3</small></h1>
 
     </div>
